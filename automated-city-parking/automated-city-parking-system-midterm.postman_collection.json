@@ -1,0 +1,304 @@
+{
+  "info": {
+    "name":"Automated City Parking System",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "A2 -Save parking Session",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8085/api/parking-sessions/save"
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"sessionDate\": \"{{sessionDate}}\", \"bayLabel\": \"B1\", \"hours\": 2, \\\"motorist\\\": {\\\"id\\\": \\\"{{motoristId}}\\\"}, \\\"attendant\\\": {\\\"id\\\": \\\"{{attendantId}}\" }}"
+        }
+      }
+    },
+    {
+      "name": "A2 - Get all parking sessions",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8085/api/parking-sessions/all"
+        }
+      }
+    },
+    {
+      "name": "A2 - Get parking session by id",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8085/api/parking-sessions/{{parkingSessionId}}"
+        }
+      }
+    },
+    {
+      "name": "A2 - Update parking session",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8085/api/parking-sessions/update/{{parkingSessionId}}"
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"sessionDate\": \"{{sessionDate}}\", \"bayLabel\": \"B2\", \"hours\": 3}"
+        }
+      }
+    },
+    {
+      "name": "A2 - Delete parking session",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8085/api/parking-sessions/delete/{{parkingSessionId}}"
+        }
+      }
+    },
+    {
+      "name": "B1 - Motorists by last name",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8085/api/motorists/by-last-name?lastName=igihozo"
+        }
+      }
+    },
+    {
+      "name": "B2 - Parking sessions by status",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8085/api/parking-sessions/by-status?status=RESERVED"
+        }
+      }
+    },
+    {
+      "name": "B3 - Parking sessions between",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8085/api/parking-sessions/between?start=2026-10-01&end=2026-10-31"
+        }
+      }
+    },
+    {
+      "name": "C1 - Attendants by vehicle type",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8085/api/attendants/by-vehicle-type?name=car"
+        }
+      }
+    },
+    {
+      "name": "C2 - Free parking lots",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8085/api/parking-lots/free"
+        }
+      }
+    },
+    {
+      "name": "C3 - Unused vehicle types",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8085/api/vehicle-types/unused"
+        }
+      }
+    },
+    {
+      "name": "C4 - Motorists of attendant",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8085/api/motorists/of-attendant/{{attendantId}}"
+        }
+      }
+    },
+    {
+      "name": "D1 - Safe saving",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8085/api/parking-sessions/save"
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"sessionDate\": \"2020-01-01\", \"bayLabel\": \"X\", \"hours\": 1}"
+        }
+      }
+    },
+    {
+      "name": "D2 - Status flow",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8085/api/parking-sessions/{{parkingSessionId}}/status?status=PARKED"
+        }
+      }
+    },
+    {
+      "name": "D3 - Add vehicle type",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8085/api/attendants/{{attendantId}}/vehicle-types/{{vehicleTypeId}}"
+        }
+      }
+    },
+    {
+      "name": "D4 - Move attendant",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8085/api/attendants/{{attendantId}}/parking-lot?lotNumber=4"
+        }
+      }
+    },
+    {
+      "name": "E1 - Write fee receipt",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8085/api/fee-receipts/save?parkingSessionId={{exitedSessionId}}"
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"feeType\": \"Hourly\", \"notes\": \"Three hours\", \"amountRwf\": 1500}"
+        }
+      }
+    },
+    {
+      "name": "E2 - Fee receipt history",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8085/api/fee-receipts/motorist/RAD123B"
+        }
+      }
+    },
+    {
+      "name": "E3 - Delete fee receipt",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8085/api/fee-receipts/delete/{{feeReceiptId}}"
+        }
+      }
+    },
+    {
+      "name": "F1 - Sessions by status",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8085/api/parking-sessions/stats/by-status"
+        }
+      }
+    },
+    {
+      "name": "F2 - Cancel day",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8085/api/parking-sessions/cancel-day?attendantId={{attendantId}}&date=2026-10-20"
+        }
+      }
+    },
+    {
+      "name": "Bonus - Dashboard",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8085/api/dashboard/summary"
+        }
+      }
+    },
+    {
+      "name": "Bonus - Page",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8085/api/parking-sessions/page?page=0&size=5&sort=sessionDate,desc"
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "attendantId",
+      "value": ""
+    },
+    {
+      "key": "vehicleTypeId",
+      "value": ""
+    },
+    {
+      "key": "motoristId",
+      "value": ""
+    },
+    {
+      "key": "parkingSessionId",
+      "value": ""
+    },
+    {
+      "key": "exitedSessionId",
+      "value": ""
+    },
+    {
+      "key": "feeReceiptId",
+      "value": ""
+    },
+    {
+      "key": "sessionDate",
+      "value": "2026-12-01"
+    }
+  ]
+}
