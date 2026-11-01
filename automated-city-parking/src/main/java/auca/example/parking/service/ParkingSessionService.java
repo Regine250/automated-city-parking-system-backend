@@ -52,7 +52,7 @@ public class ParkingSessionService {
 
         if (ps.getMotorist() == null ||
                 ps.getMotorist().getId() == null) {
-            return "ID of the Motorist is required";
+            return "The ID of the Motorist is required";
         }
 
         Motorist motorist = motoristRepo
@@ -65,7 +65,7 @@ public class ParkingSessionService {
 
         if (ps.getAttendant() == null ||
                 ps.getAttendant().getId() == null) {
-            return "Attendant ID is required";
+            return "An Attendant ID is required";
         }
 
         Attendant attendant = attendantRepo
@@ -154,12 +154,12 @@ public class ParkingSessionService {
         ParkingSession ps = repo.findById(id).orElse(null);
 
         if (ps == null) {
-            return "The parking session with that id does not exist";
+            return "The parking session with that id doesn't exist";
         }
 
         repo.deleteById(id);
 
-        return "Parking session deleted successfully";
+        return "A Parking session was deleted successfully";
     }
 
     public String updateStatus(UUID id, SessionStatus status) {
@@ -219,7 +219,7 @@ public class ParkingSessionService {
                 .orElse(null);
 
         if (attendant == null) {
-            return "The attendant with that id does not exist";
+            return "The attendant with that id doesn't exist";
         }
 
         int count = repo.cancelDay(attendant, date);

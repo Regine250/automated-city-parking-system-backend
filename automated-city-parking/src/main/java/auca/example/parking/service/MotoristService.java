@@ -17,7 +17,7 @@ public class MotoristService {
     @Autowired private ParkingSessionRepository sessionRepo;
 
     public String saveMotorist(Motorist m) { repo.save(m);
-        return "Motorist saved successfully";
+        return "The Motorist issaved successfully";
     }
     public List<Motorist> getAllMotorists() {
         return repo.findAll();
@@ -28,19 +28,19 @@ public class MotoristService {
     public String updateMotorist(UUID id, Motorist newData) {
         Motorist m = repo.findById(id).orElse(null);
         if (m == null)
-            return "The motorist with that id does not exist";
+            return "The motorist with that id doesn't";
         m.setFirstName(newData.getFirstName());
         m.setLastName(newData.getLastName());
         m.setPlateNumber(newData.getPlateNumber());
         m.setPhone(newData.getPhone());
         repo.save(m);
-        return "Motorist updated successfully";
+        return "The Motorist was updated successfully";
     }
     public String deleteMotorist(UUID id) {
         if (!repo.existsById(id))
-            return "The motorist with that id does not exist";
+            return "The motorist with that id doesn't exist";
         repo.deleteById(id);
-        return "Motorist deleted successfully";
+        return "The Motorist was deleted successfully";
     }
     public List<Motorist> findByLastName(String lastName) {
         return repo.findByLastNameIgnoreCaseOrderByFirstNameAsc(lastName);

@@ -18,9 +18,9 @@ public class FeeReceiptController {
     @PostMapping("/save")
     public ResponseEntity<?> save(@RequestParam UUID parkingSessionId, @RequestBody FeeReceipt fr) {
         String msg = service.saveFeeReceipt(parkingSessionId, fr);
-        if (msg.equals("Fee receipt saved successfully"))
+        if (msg.equals("A Fee receipt was saved successfully"))
             return new ResponseEntity<>(msg, HttpStatus.CREATED);
-        if (msg.equals("Fee receipts are only for EXITED parking sessions"))
+        if (msg.equals("All Fee receipts are only for EXITED parking sessions"))
             return new ResponseEntity<>(msg, HttpStatus.BAD_REQUEST);
         return new ResponseEntity<>(msg, HttpStatus.NOT_FOUND);
     }
@@ -31,7 +31,7 @@ public class FeeReceiptController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable UUID id) {
         String msg = service.deleteFeeReceipt(id);
-        if (msg.equals("Fee receipt deleted successfully"))
+        if (msg.equals("The Fee receipt was deleted successfully"))
             return new ResponseEntity<>(msg, HttpStatus.OK);
         return new ResponseEntity<>(msg, HttpStatus.NOT_FOUND);
     }

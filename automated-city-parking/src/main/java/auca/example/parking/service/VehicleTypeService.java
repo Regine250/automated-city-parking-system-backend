@@ -24,16 +24,16 @@ public class VehicleTypeService {
     public String updateVehicleType(UUID id, VehicleType newData) {
         VehicleType v = repo.findById(id).orElse(null);
         if (v == null)
-            return "The vehicle type with that id does not exist";
+            return "The vehicle type with that id doesn't exist";
         v.setName(newData.getName());
         repo.save(v);
-        return "Vehicle type updated successfully";
+        return "Vehicle type was updated successfully";
     }
     public String deleteVehicleType(UUID id) {
         if (!repo.existsById(id))
-            return "The vehicle type with that id does not exist";
+            return "There is no vehicle type with that id ";
         repo.deleteById(id);
-        return "Vehicle type deleted successfully";
+        return "The Vehicle was type deleted successfully";
     }
     public List<VehicleType> getUnused() {
         return repo.findUnused();

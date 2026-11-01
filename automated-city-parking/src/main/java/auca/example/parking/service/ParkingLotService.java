@@ -13,7 +13,7 @@ public class ParkingLotService {
     @Autowired private ParkingLotRepository repo;
 
     public String saveParkingLot(ParkingLot p) { repo.save(p);
-        return "Parking lot saved successfully";
+        return "Parking lot was saved successfully";
     }
     public List<ParkingLot> getAllParkingLots() {
         return repo.findAll();
@@ -24,7 +24,7 @@ public class ParkingLotService {
     public String updateParkingLot(UUID id, ParkingLot newData) {
         ParkingLot p = repo.findById(id).orElse(null);
         if (p == null)
-            return "The parking lot with that id does not exist";
+            return "The parking lot with that id doesn't exist";
         p.setLotNumber(newData.getLotNumber());
         p.setName(newData.getName());
         repo.save(p);
@@ -32,9 +32,9 @@ public class ParkingLotService {
     }
     public String deleteParkingLot(UUID id) {
         if (!repo.existsById(id))
-            return "The parking lot with that id does not exist";
+            return "The parking lot with that id doesn't exist";
         repo.deleteById(id);
-        return "Parking lot deleted successfully";
+        return "A Parking lot was deleted successfully";
     }
     public List<ParkingLot> getFreeParkingLots() {
         return repo.findFreeParkingLots();

@@ -28,20 +28,20 @@ public class MotoristController {
     public ResponseEntity<?> get(@PathVariable UUID id) {
         Motorist m = service.getMotoristById(id);
         if (m == null)
-            return new ResponseEntity<>("The motorist with that id does not exist", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("The motorist with that id doesn't exist", HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(m, HttpStatus.OK);
     }
     @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@PathVariable UUID id, @RequestBody Motorist m) {
         String msg = service.updateMotorist(id, m);
-        if (msg.equals("Motorist updated successfully"))
+        if (msg.equals("The Motorist was updated successfully"))
     return new ResponseEntity<>(msg, HttpStatus.OK);
         return new ResponseEntity<>(msg, HttpStatus.NOT_FOUND);
     }
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable UUID id) {
         String msg = service.deleteMotorist(id);
-        if (msg.equals("Motorist deleted successfully"))
+        if (msg.equals("A Motorist was deleted successfully"))
             return new ResponseEntity<>(msg, HttpStatus.OK);
         return new ResponseEntity<>(msg, HttpStatus.NOT_FOUND);
     }
@@ -53,7 +53,7 @@ public class MotoristController {
     public ResponseEntity<?> ofAttendant(@PathVariable UUID attendantId) {
         List<Motorist> result = service.getMotoristsOfAttendant(attendantId);
         if (result == null)
-            return new ResponseEntity<>("The attendant with that id does not exist", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("There is no attendant with that id", HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }

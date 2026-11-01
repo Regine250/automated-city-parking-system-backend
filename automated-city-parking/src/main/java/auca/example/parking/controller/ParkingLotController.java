@@ -27,20 +27,20 @@ public class ParkingLotController {
     public ResponseEntity<?> get(@PathVariable UUID id) {
         ParkingLot p = service.getParkingLotById(id);
         if (p == null)
-            return new ResponseEntity<>("The parking lot with that id does not exist", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("There is no parking lot with that id", HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(p, HttpStatus.OK);
     }
     @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@PathVariable UUID id, @RequestBody ParkingLot p) {
         String msg = service.updateParkingLot(id, p);
-        if (msg.equals("Parking lot updated successfully"))
+        if (msg.equals("A Parking lot was updated successfully"))
             return new ResponseEntity<>(msg, HttpStatus.OK);
         return new ResponseEntity<>(msg, HttpStatus.NOT_FOUND);
     }
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable UUID id) {
         String msg = service.deleteParkingLot(id);
-        if (msg.equals("Parking lot deleted successfully"))
+        if (msg.equals("The Parking lot was deleted successfully"))
             return new ResponseEntity<>(msg, HttpStatus.OK);
         return new ResponseEntity<>(msg, HttpStatus.NOT_FOUND);
     }

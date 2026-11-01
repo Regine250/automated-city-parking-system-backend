@@ -26,11 +26,11 @@ public class ParkingSessionController {
     @PostMapping("/save")
     public ResponseEntity<?> save(@RequestBody ParkingSession ps) {
         String msg = service.saveParkingSession(ps);
-        if (msg.equals("Parking session saved successfully"))
+        if (msg.equals("A Parking session was safely saved."))
             return new ResponseEntity<>(msg, HttpStatus.CREATED);
-        if (msg.equals("Parking session date cannot be in the past"))
+        if (msg.equals("A Parking session date can't be in the past"))
             return new ResponseEntity<>(msg, HttpStatus.BAD_REQUEST);
-        if (msg.equals("Attendant already supervises a session on that date"))
+        if (msg.equals("An Attendant already supervises a session on that date"))
             return new ResponseEntity<>(msg, HttpStatus.CONFLICT);
         return new ResponseEntity<>(msg, HttpStatus.BAD_REQUEST);
     }
@@ -39,33 +39,33 @@ public class ParkingSessionController {
     @GetMapping("/{id}")
     public ResponseEntity<?> get(@PathVariable UUID id) {
         ParkingSession ps = service.getParkingSessionById(id);
-        if (ps == null) return new ResponseEntity<>("The parking session with that id does not exist", HttpStatus.NOT_FOUND);
+        if (ps == null) return new ResponseEntity<>("There is no parking session with that id", HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(ps, HttpStatus.OK);
     }
     @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@PathVariable UUID id, @RequestBody ParkingSession ps) {
         String msg = service.updateParkingSession(id, ps);
-        if (msg.equals("Parking session updated successfully"))
+        if (msg.equals("The Parking session was updated successfully"))
             return new ResponseEntity<>(msg, HttpStatus.OK);
         return new ResponseEntity<>(msg, HttpStatus.NOT_FOUND);
     }
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable UUID id) {
         ParkingSession ps = service.getParkingSessionById(id);
-        if (ps == null) return new ResponseEntity<>("The parking session with that id does not exist", HttpStatus.NOT_FOUND);
+        if (ps == null) return new ResponseEntity<>("There isn't a parking session with that id", HttpStatus.NOT_FOUND);
         if (receiptService.existsByParkingSession(ps))
             return new ResponseEntity<>("That parking session has fee receipts, delete them first", HttpStatus.CONFLICT);
         String msg = service.deleteParkingSession(id);
-        if (msg.equals("Parking session deleted successfully"))
+        if (msg.equals("The Parking session was safely deleted"))
             return new ResponseEntity<>(msg, HttpStatus.OK);
         return new ResponseEntity<>(msg, HttpStatus.NOT_FOUND);
     }
     @PatchMapping("/{id}/status")
     public ResponseEntity<?> status(@PathVariable UUID id, @RequestParam SessionStatus status) {
         String msg = service.updateStatus(id, status);
-        if (msg.equals("Parking session status updated successfully"))
+        if (msg.equals("The Parking session status was updated successfully"))
             return new ResponseEntity<>(msg, HttpStatus.OK);
-        if (msg.equals("The parking session with that id does not exist"))
+        if (msg.equals("There isn't a parking session with that id"))
             return new ResponseEntity<>(msg, HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(msg, HttpStatus.BAD_REQUEST);
     }
@@ -86,7 +86,7 @@ public class ParkingSessionController {
     @PatchMapping("/cancel-day")
     public ResponseEntity<?> cancelDay(@RequestParam UUID attendantId, @RequestParam String date) {
         String msg = service.cancelDay(attendantId, LocalDate.parse(date));
-        if (msg.equals("The attendant with that id does not exist"))
+        if (msg.equals("There is no attendant with that id"))
             return new ResponseEntity<>(msg, HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(msg, HttpStatus.OK);
     }

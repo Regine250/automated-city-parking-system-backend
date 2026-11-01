@@ -21,7 +21,8 @@ public class AttendantService {
     public String saveAttendant(Attendant a) {
         if (a.getParkingLot() != null && a.getParkingLot().getId() != null) {
             ParkingLot lot = lotRepo.findById(a.getParkingLot().getId()).orElse(null);
-            if (lot == null) return "The parking lot with that lotNumber does not exist";
+            if (lot == null)
+                return "There isn't parking lot with that lotNumber";
             a.setParkingLot(lot);
         }
         if (a.getVehicleTypes() != null && !a.getVehicleTypes().isEmpty()) {
@@ -35,7 +36,7 @@ public class AttendantService {
             a.setVehicleTypes(managed);
         }
         repo.save(a);
-        return "Attendant saved successfully";
+        return "An Attendant was saved successfully";
     }
 
     public List<Attendant> getAllAttendants() {
@@ -48,7 +49,7 @@ public class AttendantService {
     public String updateAttendant(UUID id, Attendant newData) {
         Attendant a = repo.findById(id).orElse(null);
         if (a == null)
-            return "The attendant with that id does not exist";
+            return "There isn't an attendant with that id";
         a.setFirstName(newData.getFirstName());
         a.setLastName(newData.getLastName());
         a.setBadgeNumber(newData.getBadgeNumber());
@@ -56,7 +57,7 @@ public class AttendantService {
         if (newData.getParkingLot() != null && newData.getParkingLot().getId() != null) {
             ParkingLot lot = lotRepo.findById(newData.getParkingLot().getId()).orElse(null);
             if (lot == null)
-                return "The parking lot with that lotNumber does not exist";
+                return "The parking lot with that lotNumber doesn't exist";
             a.setParkingLot(lot);
         } else if (newData.getParkingLot() == null) {
             a.setParkingLot(null);
@@ -72,42 +73,43 @@ public class AttendantService {
             a.setVehicleTypes(managed);
         }
         repo.save(a);
-        return "Attendant updated successfully";
+        return "An Attendant was updated successfully";
     }
 
     public String deleteAttendant(UUID id) {
-        if (!repo.existsById(id)) return "The attendant with that id does not exist";
+        if (!repo.existsById(id))
+            return "There isn't attendant with that id";
         repo.deleteById(id);
-        return "Attendant deleted successfully";
+        return "The Attendant was deleted successfully";
     }
 
     public String addVehicleType(UUID attendantId, UUID vehicleTypeId) {
         Attendant a = repo.findById(attendantId).orElse(null);
         if (a == null)
-            return "The attendant with that id does not exist";
+            return "There isn't an attendant with that id";
         VehicleType vt = vtRepo.findById(vehicleTypeId).orElse(null);
         if (vt == null)
-            return "That vehicle type does not exist";
+            return "That vehicle type doesn't exist";
         if (a.getVehicleTypes().contains(vt))
-            return "The attendant already has that vehicle type";
+            return "There is an attendant with that vehicle type";
         a.getVehicleTypes().add(vt);
         repo.save(a);
-        return "Vehicle type added to the attendant";
+        return "The Vehicle type was added to the attendant";
     }
 
     public String moveAttendantToParkingLot(UUID attendantId, int lotNumber) {
         Attendant a = repo.findById(attendantId).orElse(null);
         if (a == null)
-            return "The attendant with that id does not exist";
+            return "There is no attendant with that id";
         ParkingLot lot = lotRepo.findByLotNumber(lotNumber).orElse(null);
         if (lot == null)
-            return "The parking lot with that lotNumber does not exist";
+            return "There is no parking lot with that lotNumber";
         if (repo.existsByParkingLot(lot) && (a.getParkingLot() == null || !a.getParkingLot().getId().equals(lot.getId()))) {
             return "That parking lot is taken by another attendant";
         }
         a.setParkingLot(lot);
         repo.save(a);
-        return "Parking lot changed successfully";
+        return "The Parking lot was changed successfully";
     }
 
     public List<Attendant> getAttendantsByVehicleType(String name) {

@@ -28,20 +28,20 @@ public class VehicleTypeController {
     public ResponseEntity<?> get(@PathVariable UUID id) {
         VehicleType v = service.getVehicleTypeById(id);
         if (v == null)
-            return new ResponseEntity<>("The vehicle type with that id does not exist", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("The vehicle type with that id doesn't exist", HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(v, HttpStatus.OK);
     }
     @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@PathVariable UUID id, @RequestBody VehicleType v) {
         String msg = service.updateVehicleType(id, v);
-        if (msg.equals("Vehicle type updated successfully"))
+        if (msg.equals("A Vehicle type was updated successfully"))
             return new ResponseEntity<>(msg, HttpStatus.OK);
         return new ResponseEntity<>(msg, HttpStatus.NOT_FOUND);
     }
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable UUID id) {
         String msg = service.deleteVehicleType(id);
-        if (msg.equals("Vehicle type deleted successfully"))
+        if (msg.equals("A Vehicle type was deleted successfully"))
             return new ResponseEntity<>(msg, HttpStatus.OK);
         return new ResponseEntity<>(msg, HttpStatus.NOT_FOUND);
     }
