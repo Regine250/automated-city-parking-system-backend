@@ -34,25 +34,25 @@ public class ParkingSessionService {
     public String saveParkingSession(ParkingSession ps) {
 
         if (ps.getSessionDate() == null) {
-            return "Session date is required";
+            return "The Session date is required";
         }
 
         if (ps.getSessionDate().isBefore(LocalDate.now())) {
-            return "Parking session date cannot be in the past";
+            return "The Parking session date can't be in the past";
         }
 
         if (ps.getHours() <= 0) {
-            return "Parking hours must be greater than zero";
+            return "Parking hours mustn't be greater than zero";
         }
 
         if (ps.getBayLabel() == null ||
                 ps.getBayLabel().trim().isEmpty()) {
-            return "Parking bay label is required";
+            return "The Parking bay label is required";
         }
 
         if (ps.getMotorist() == null ||
                 ps.getMotorist().getId() == null) {
-            return "Motorist ID is required";
+            return "ID of the Motorist is required";
         }
 
         Motorist motorist = motoristRepo
@@ -60,7 +60,7 @@ public class ParkingSessionService {
                 .orElse(null);
 
         if (motorist == null) {
-            return "The motorist with that ID does not exist";
+            return "The motorist with that ID doesn't exists";
         }
 
         if (ps.getAttendant() == null ||
@@ -73,7 +73,7 @@ public class ParkingSessionService {
                 .orElse(null);
 
         if (attendant == null) {
-            return "The attendant with that ID does not exist";
+            return "An attendant with that ID doesn't exist";
         }
 
         if (repo.existsByAttendantAndSessionDateAndStatusNot(
@@ -81,7 +81,7 @@ public class ParkingSessionService {
                 ps.getSessionDate(),
                 SessionStatus.CANCELLED)) {
 
-            return "Attendant already supervises a session on that date";
+            return "The Attendant already supervises a session on that date";
         }
 
         ps.setMotorist(motorist);
@@ -109,7 +109,7 @@ public class ParkingSessionService {
         ParkingSession ps = repo.findById(id).orElse(null);
 
         if (ps == null) {
-            return "The parking session with that id does not exist";
+            return "The parking session with that id doesn't exist";
         }
 
         ps.setSessionDate(newData.getSessionDate());
@@ -124,7 +124,7 @@ public class ParkingSessionService {
                     .orElse(null);
 
             if (motorist == null) {
-                return "The motorist with that ID does not exist";
+                return "The motorist with that ID doesn't exist";
             }
 
             ps.setMotorist(motorist);
@@ -138,7 +138,7 @@ public class ParkingSessionService {
                     .orElse(null);
 
             if (attendant == null) {
-                return "The attendant with that ID does not exist";
+                return "The attendant with that ID doesn't exist";
             }
 
             ps.setAttendant(attendant);
@@ -146,7 +146,7 @@ public class ParkingSessionService {
 
         repo.save(ps);
 
-        return "Parking session updated successfully";
+        return "The Parking session was updated successfully";
     }
 
     public String deleteParkingSession(UUID id) {
@@ -167,7 +167,7 @@ public class ParkingSessionService {
         ParkingSession ps = repo.findById(id).orElse(null);
 
         if (ps == null) {
-            return "The parking session with that id does not exist";
+            return "A parking session with that id doesn't exist";
         }
 
         SessionStatus current = ps.getStatus();
@@ -193,7 +193,7 @@ public class ParkingSessionService {
         ps.setStatus(status);
         repo.save(ps);
 
-        return "Parking session status updated successfully";
+        return "The Parking session status is successfully updated";
     }
 
     public List<ParkingSession> byStatus(SessionStatus status) {

@@ -23,6 +23,7 @@ public class AttendantController {
     @GetMapping("/all")
     public ResponseEntity<?> all() {
         return new ResponseEntity<>(service.getAllAttendants(), HttpStatus.OK);
+
     }
     @GetMapping("/{id}")
     public ResponseEntity<?> get(@PathVariable UUID id) {
